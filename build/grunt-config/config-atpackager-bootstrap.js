@@ -28,6 +28,7 @@
 module.exports = function (grunt) {
     var atExtensions = ['**/*.js', '**/*.tpl', '**/*.tpl.css', '**/*.tpl.txt', '**/*.tml', '**/*.cml'];
     var mainATFile = 'aria/<%= pkg.name %>-<%= pkg.version %>.js';
+    var removeIE7 = require('../visitors/RemoveIE7');
 
     grunt.config.set('atpackager.bootstrap', {
         options : {
@@ -46,6 +47,9 @@ module.exports = function (grunt) {
                             // only check dependencies for the bootstrap
                             files : [mainATFile]
                         }
+                    },
+                    {
+                        type : removeIE7
                     }, 'ATDependencies', {
                         type : 'JSStripBanner',
                         cfg : {

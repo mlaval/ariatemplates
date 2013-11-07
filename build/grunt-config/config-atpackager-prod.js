@@ -32,6 +32,7 @@ module.exports = function (grunt) {
         return '!' + value;
     });
     var mainATFile = 'aria/<%= pkg.name %>-<%= pkg.version %>.js';
+    var removeIE7 = require('../visitors/RemoveIE7');
     var hashFiles = atExtensions.concat(['aria/core/transport/iframeSource*', 'aria/utils/FrameATLoaderHTML*',
             '**/*.swf', '**/*.jnlp', '!aria/css/**', '!' + mainATFile, '<%= packaging.prod.hash_include_files %>']);
 
@@ -58,6 +59,8 @@ module.exports = function (grunt) {
                         cfg : {
                             checkPackagesOrder : false
                         }
+                    },{
+                        type : removeIE7
                     }, 'ATCompileTemplates', 'ATRemoveDoc', {
                         type : 'JSMinify',
                         cfg : {
